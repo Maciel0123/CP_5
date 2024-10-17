@@ -1,26 +1,29 @@
+import Link from 'next/Link';
+import styled from 'styled-components';
 
-.nav{
+export const StyledNav = styled.nav`
     display: flex;
     align-items: flex-end;
-}
+`;
 
-.ul{
+export const StyledUl = styled.ul`
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0;
     padding: 0;
-}
+`;
 
-.li{
+export const StyledLi = styled.li`
     display: flex;
     align-items: center;
     flex-direction: column;
     margin: 0;
-}
+`;
 
-.link{
+export const StyledLink = styled(Link)`
     font-size: 0.8rem;
     color: #1f1e31;
-}
+    text-decoration: none;
+`;

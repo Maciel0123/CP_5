@@ -1,5 +1,4 @@
-
-import styles from "./Input.module.css";
+import { StyledInput, StyledLabel } from "./Input.style";
 
 interface InputProps {
   type: string;
@@ -19,9 +18,8 @@ export const Input = ({
 }: InputProps) => {
   return (
     <>
-      <label className={styles.label} htmlFor={id}>{label}</label>
-      <input
-        className={styles.input}
+      <StyledLabel htmlFor={id}>{label}</StyledLabel>
+      <StyledInput
         type={type}
         id={id}
         name={name}

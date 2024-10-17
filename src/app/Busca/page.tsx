@@ -1,14 +1,15 @@
 "use client";
-import { useContext, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Header } from "@/components/Header/Header";
-import { Input } from "@/components/Input/Input";
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/componets/Button/Button";
+import { Header } from "@/componets/Header/Header";
+import { Input } from "@/componets/Input/Input";
 import UserContext from "@/context/UserContext";
-import { loadLoginState } from "@/Helpers/loadLoginState";
+import { loadLoginState } from "@/helpers/loadLoginState";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
+
 
 export default function Busca() {
-    loadLoginState()
+    loadLoginState();
     const router = useRouter();
     const [cityName, setCityName] = useState<string>("");
     const [cityList, setCityList] = useState([]);
@@ -21,14 +22,19 @@ export default function Busca() {
     };
 
     const loadCities = async () => {
-        setIsLoading(true);
-        console.log("blaa");
 
+        setCityList([]);
+
+        if (!cityName.trim()) {
+            alert("Digite o nome de uma cidade para buscar.");
+            return;
+        }
+
+        setIsLoading(true);
         try {
             const response = await fetch(
                 `https://brasilapi.com.br/api/cptec/v1/cidade/${cityName}`
             );
-
             const data = await response.json();
             setCityList(data);
         } catch (error) {
@@ -38,47 +44,48 @@ export default function Busca() {
         }
     };
 
-    const handleClick = () => {
+    const handleClick = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         loadCities();
     };
 
     const handleNavigate = (cityCode: number) => {
-        const state = {
-            cityCode: cityCode,
-        };
-
-        router.push(`/?cityCode=${state.cityCode}`);
+        router.push(`/?cityCode=${cityCode}`);
     };
 
     return (
         <>
             <Header title="Busca" userName={userName} />
-            <form>
+            <form onSubmit={handleClick}>
                 <Input
                     label="Buscar cidade"
                     id="search"
                     name="search"
                     type="text"
+                    value={cityName}
                     onChange={handleChange}
                 />
-                <Button type="button" onClick={handleClick}>
-                    Buscar
-                </Button>
+                <Button type="submit">Buscar</Button>
             </form>
 
             <div>
                 {isLoading ? (
-                    <p>Carregando</p>
+                    <p>Carregando...</p>
                 ) : (
                     <ul>
-                        {cityList.map((city) => (
-                            <li
-                                key={city.id}
-                                onClick={() => handleNavigate(city.id)}
-                            >
-                                {city.nome} / {city.estado}
-                            </li>
-                        ))}
+                        {cityList.length > 0 ? (
+                            cityList.map((city) => (
+                                <li
+                                    key={city.id}
+                                    onClick={() => handleNavigate(city.id)}
+                                    style={{ cursor: "pointer", marginBottom: "8px" }}
+                                >
+                                    {city.nome} / {city.estado}
+                                </li>
+                            ))
+                        ) : (
+                            <p>Nenhuma cidade encontrada.</p>
+                        )}
                     </ul>
                 )}
             </div>

@@ -1,29 +1,37 @@
+"use client";
 
 import { BiHeart, BiHomeAlt, BiSearch, BiUserCircle } from "react-icons/bi";
-import Link from "next/link"
-import styles from './Menu.module.css'
+import { StyledLi, StyledLink, StyledNav, StyledUl } from "./Menu.style";
 
 export const Menu = () => {
     return (
-        <nav className={styles.nav}>
-            <ul className={styles.ul}>
-                <li className={styles.li}>
+        <StyledNav>
+            <StyledUl>
+                <StyledLi>
                     <BiHomeAlt size="1.5rem" color="#38aede" />
-                    <Link className={styles.link} href={'/'}>Inicio</Link>
-                </li>
-                <li className={styles.li}>
+                    <StyledLink href={'/'}>
+                        Inicio
+                    </StyledLink>
+                </StyledLi>
+                <StyledLi>
                     <BiSearch size="1.5rem" color="#38aede" />
-                    <Link className={styles.link} href={'/busca'}>Busca</Link>
-                </li>
-                <li className={styles.li}>
+                    <StyledLink href={'/busca'}>
+                        Busca
+                    </StyledLink>
+                </StyledLi>
+                <StyledLi>
                     <BiHeart size="1.5rem" color="#38aede" />
-                    <Link className={styles.link} href={'/favoritos'}>Favoritos</Link>
-                </li>
-                <li className={styles.li}>
+                    <StyledLink href={'/favoritos'}>
+                        Favoritos
+                    </StyledLink>
+                </StyledLi>
+                <StyledLi>
                     <BiUserCircle size="1.5rem" color="#38aede" />
-                    <Link className={styles.link} href={'/perfil'}>Perfil</Link>
-                </li>
-            </ul>
-        </nav>
-    )
-}
+                    <StyledLink href={'/perfil'}>
+                        Perfil
+                    </StyledLink>
+                </StyledLi>
+            </StyledUl>
+        </StyledNav>
+    );
+};

@@ -1,10 +1,11 @@
+"use client";
 
-import styles from "./Header.module.css"
-import { useContext } from "react"
-import { useRouter } from "next/navigation";
 import UserContext from "@/context/UserContext";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { StyledH1, StyledHeader, Stylediv } from "./Header.style";
 
-interface HeaderProps{
+interface HeaderProps {
     title: string
     userName: string
 }
@@ -12,7 +13,7 @@ interface HeaderProps{
 export const Header = ({ title, userName }: HeaderProps) => {
     const router = useRouter();
     const { setUserName } = useContext(UserContext)
-    
+
     const handleLogin = () => {
         router.push('/login')
     }
@@ -22,21 +23,21 @@ export const Header = ({ title, userName }: HeaderProps) => {
         setUserName(null)
         router.push('/login')
     }
-    
+
     return (
-        <header className={styles.header}>
-            <h1 className={styles.h1}>{title}</h1>
-            <div className={styles.div}>
+        <StyledHeader>
+            <StyledH1>{title}</StyledH1>
+            <Stylediv>
                 {userName
                     ? (<>
                         <span>{userName}</span>
-                        <button className={styles.button} onClick={handleLogout}>Sair</button>
+                        <button className="button" onClick={handleLogout}>Sair</button>
                     </>)
                     : (
-                        <button className={styles.button} onClick={handleLogin}>Login</button>
+                        <button className="button" onClick={handleLogin}>Login</button>
                     )
                 }
-            </div>
-        </header>
+            </Stylediv>
+        </StyledHeader>
     )
 }

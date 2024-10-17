@@ -1,4 +1,3 @@
-
 "use client";
 import { createContext, useState } from "react";
 
@@ -9,7 +8,7 @@ interface UserContextProviderProps {
 }
 
 const UserContextProvider = ({ children }: UserContextProviderProps) => {
-    const [userName, setUserName] = useState("")
+    const [userName, setUserName] = useState<string | null>("")
 
     return (
         <UserContext.Provider value={{
@@ -21,5 +20,5 @@ const UserContextProvider = ({ children }: UserContextProviderProps) => {
     )
 }
 
-export { UserContextProvider }
+export { UserContextProvider };
 export default UserContext;
